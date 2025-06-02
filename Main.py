@@ -7,6 +7,8 @@ import json
 from flask import Flask, Response, Request
 import cv2 #from opencv-python
 
+#https://randomnerdtutorials.com/raspberry-pi-pinout-gpios/ raspberry pi pinout
+
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)  # 0 = first USB camera
 
