@@ -1,8 +1,11 @@
-from Main import Flask, Response
+from Main import Flask, Response, Request
 from Main import cv2
 
 from Main import app
 from Main import camera
+
+from Main import requests
+from Main import json
 
 def generate_frames():
     while True:
@@ -18,10 +21,14 @@ def generate_frames():
                    b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 @app.route("/")
 def index():
-    return "<h1>Live USB Camera Stream</h1><img src='/video'>"
+    return ("<h1>Live USB Camera Stream</h1><img src='/video'>"
+            "<h2>Test<h/2>")
 @app.route("/video")
 def video():
     return Response(generate_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
+@app.route("/gps_data")
+def post_gps_data():
+    return "<h1>" + str(0) + "</h1>"
 
 app.run(host='0.0.0.0', port=5000)
