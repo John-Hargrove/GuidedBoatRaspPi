@@ -11,7 +11,7 @@ app = Flask(__name__)
 camera = cv2.VideoCapture(0)  # 0 = first USB camera
 
 def main():
-    foo = 1
+    foo = 2
 
 if __name__ == "__main__":
     main()
