@@ -4,6 +4,9 @@ from Main import cv2
 from Main import app
 from Main import camera
 
+i = 0
+
+
 from Main import requests
 from Main import json
 
@@ -21,7 +24,11 @@ def generate_frames():
                    b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 @app.route("/")
 def index():
-    return ("<h1>Live USB Camera Stream</h1><img src='/video'>"
+    global i
+    i += 1
+    if i > 10:
+        i = 0
+    return ("<h1>Live USB Camera Stream" + str(i) + "</h1><img src='/video'>"
             "<h2>Test<h/2>")
 @app.route("/video")
 def video():
