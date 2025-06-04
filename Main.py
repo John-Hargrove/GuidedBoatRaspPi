@@ -3,11 +3,7 @@ import MotorControllers
 import GpsModule
 import requests
 import json
-
 import adafruit_gps
-import board
-import time
-import busio
 
 from flask import Flask, Response, Request
 import cv2 #from opencv-python
