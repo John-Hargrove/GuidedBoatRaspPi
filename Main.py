@@ -1,9 +1,12 @@
 import ServerHost #handles the server hosting
-import MotorControllers
-import GpsModule
+import MotorControllers #handles the motor controllers
+import GpsModule #handles the GPS module
+
 import requests
 import json
-import adafruit_gps
+import busio
+
+import adafruit_gps #from adafruit-pythoncircuit-gps
 
 from flask import Flask, Response, Request
 import cv2 #from opencv-python

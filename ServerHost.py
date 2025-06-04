@@ -1,11 +1,18 @@
-from Main import Flask, Response, Request
-from Main import cv2
+from numpy.random import random_integers
+#
+# from Main import Flask, Response, Request
+# from Main import cv2
+#
 
+#
+# from Main import requests
+# from Main import json
+#
+import random
+
+from Main import *
 from Main import app
 from Main import camera
-
-from Main import requests
-from Main import json
 
 def generate_frames():
     while True:
@@ -19,10 +26,38 @@ def generate_frames():
             # Yield as multipart response
             yield (b"--frame\r\n"
                    b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
+# @app.route("/")
+# def index():
+#     return ("<h1>Live USB Camera Stream</h1><img src='/video'>"
+#             "<h2>Test<h/2>")
+
 @app.route("/")
 def index():
-    return ("<h1>Live USB Camera Stream</h1><img src='/video'>"
-            "<h2>Test<h/2>")
+    return (
+        "<h1>Live USB Camera Stream</h1>"
+        "<img src='/video'>"
+        "<h2>GPS Data</h2>"
+        "<div id='gps'></div>"
+        "<script>"
+        "function updateGPS() {"
+        "  fetch('/gps_data')"
+        "    .then(response => response.json())"
+        "    .then(data => {"
+        "      document.getElementById('gps').innerText = "
+        "        `Lat: ${data.latitude}, Lon: ${data.longitude}`;"
+        "    });"
+        "}"
+        "setInterval(updateGPS, 100);"
+        "</script>"
+    )
+@app.route("/gps_data")
+def get_gps_data():
+    # Replace with actual GPS reading logic
+    gps_data = {
+        "latitude": random.randint(-90, 90),
+        "longitude": random.randint(-90, 90)
+    }
+    return json.dumps(gps_data)
 @app.route("/video")
 def video():
     return Response(generate_frames(),
