@@ -80,14 +80,15 @@ def video():
 def post_gps_data():
     return "<h1>" + str(0) + "</h1>"
 
-
+def run_flask():
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 def main():
-    website_thread = threading.Thread(app.run(host='0.0.0.0', port=5000))
-    website_thread.start()
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
 
     while True:
-        gps.update()
+        print("test")
 
 
 
