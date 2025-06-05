@@ -1,15 +1,15 @@
 from numpy.random import random_integers
 import random
-
-from Main import Flask, Response, Request
-from Main import cv2
-
-from Main import requests
-from Main import json
-from Main import busio
-
-from Main import app
-from Main import camera
+#
+# from Main import Flask, Response, Request
+# from Main import cv2
+#
+# from Main import requests
+# from Main import json
+# from Main import busio
+#
+# from Main import app
+# from Main import camera
 
 from GpsModule import *
 
