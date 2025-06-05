@@ -7,9 +7,14 @@
 
 import requests
 import json
-import busio
-import serial
+
 import time
+import board
+import busio
+import adafruit_gps
+
+import serial
+
 
 from flask import Flask, Response, Request
 import cv2 #from opencv-python
