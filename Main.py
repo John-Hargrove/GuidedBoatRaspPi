@@ -83,10 +83,10 @@ def post_gps_data():
 def run_flask():
     app.run(host="0.0.0.0", port=5000, debug=True)
 
-def main():
-    flask_thread = threading.Thread(target=run_flask, daemon=True)
-    flask_thread.start()
+flask_thread = threading.Thread(target=run_flask, daemon=True)
+flask_thread.start()
 
+def main():
     while True:
         print("test")
 
