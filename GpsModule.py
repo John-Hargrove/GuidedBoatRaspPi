@@ -1,4 +1,5 @@
-from Main import *
+import serial
+import adafruit_gps
 
 # Use UART / serial connection
 uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)

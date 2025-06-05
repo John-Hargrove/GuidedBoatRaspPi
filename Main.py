@@ -5,21 +5,8 @@
 # TX --> 10 (GPIO15, RXD)
 # RX --> 8 (GPIO14, TXD)
 
-import requests
-import json
-
-import time
-import board
-import busio
-import adafruit_gps
-
-import serial
-
-
 from flask import Flask, Response, Request
 import cv2 #from opencv-python
-
-import adafruit_gps #from adafruit-pythoncircuit-gps
 
 import ServerHost #handles the server hosting
 import MotorControllers #handles the motor controllers

@@ -1,6 +1,8 @@
 import random
-from Main import *
+import cv2
+import json
 
+from Main import Flask, Response, Request
 from Main import app
 from Main import camera
 
