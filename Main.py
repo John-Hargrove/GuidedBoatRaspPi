@@ -64,10 +64,11 @@ def index():
 
 @app.route("/gps_data")
 def get_gps_data():
+    gps.update()
     # Replace with actual GPS reading logic
     gps_data = {
-        "latitude": 0,
-        "longitude": 0
+        "latitude": gps.latitude,
+        "longitude": gps.longitude
     }
     return json.dumps(gps_data)
 
@@ -85,21 +86,6 @@ app.run(host='0.0.0.0', port=5000)
 def main():
     last_print = time.monotonic()
 
-    while True:
-        gps.update()
-        current = time.monotonic()
-        if current - last_print >= 1.0:
-            last_print = current
-            if not gps.has_fix:
-                print("Waiting for fix...")
-                continue
-
-            print("=" * 40)
-            print("Fix timestamp: {}".format(gps.timestamp_utc))
-            print("Latitude: {:.6f} degrees".format(gps.latitude))
-            print("Longitude: {:.6f} degrees".format(gps.longitude))
-            print("Fix quality: {}".format(gps.fix_quality))
-            print("Satellites: {}".format(gps.satellites))
 
 if __name__ == "__main__":
     main()
