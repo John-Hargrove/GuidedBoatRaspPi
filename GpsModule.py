@@ -1,7 +1,7 @@
 from Main import *
 
 # Use UART / serial connection
-uart = busio.UART("/dev/serial0", baudrate=9600, timeout=10)
+uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)
 gps = adafruit_gps.GPS(uart, debug=False)
 
 # Start using the GPS
