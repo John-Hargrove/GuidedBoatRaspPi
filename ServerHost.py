@@ -1,7 +1,4 @@
 import random
-
-from GpsModule import gps
-
 from Main import *
 
 from Main import app
@@ -47,8 +44,8 @@ def index():
 def get_gps_data():
     # Replace with actual GPS reading logic
     gps_data = {
-        "latitude": gps.latitude,
-        "longitude": gps.longitude
+        "latitude": 0,
+        "longitude": 0
     }
     return json.dumps(gps_data)
 @app.route("/video")
