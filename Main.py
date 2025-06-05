@@ -4,7 +4,7 @@
 # GND --> 6 (GND)
 # TX --> 10 (GPIO15, RXD)
 # RX --> 8 (GPIO14, TXD)
-
+import threading
 import time
 
 import serial
@@ -64,7 +64,6 @@ def index():
 
 @app.route("/gps_data")
 def get_gps_data():
-    gps.update()
     # Replace with actual GPS reading logic
     gps_data = {
         "latitude": gps.latitude,
@@ -81,10 +80,15 @@ def video():
 def post_gps_data():
     return "<h1>" + str(0) + "</h1>"
 
-app.run(host='0.0.0.0', port=5000)
+
 
 def main():
-    last_print = time.monotonic()
+    website_thread = threading.Thread(app.run(host='0.0.0.0', port=5000))
+    website_thread.start()
+
+    while True:
+        gps.update()
+
 
 
 if __name__ == "__main__":
