@@ -8,4 +8,5 @@ gps = adafruit_gps.GPS(uart, debug=False)
 gps.send_command(b"PMTK220,1000")  # Update every 1 second
 gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")  # NMEA sentences to output
 
-last_print = time.monotonic()
+while True:
+    gps.update()

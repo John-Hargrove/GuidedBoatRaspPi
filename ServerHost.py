@@ -1,12 +1,11 @@
 import random
 
+from GpsModule import gps
+
 from Main import *
-from GpsModule import *
 
 from Main import app
 from Main import camera
-
-
 
 def generate_frames():
     while True:
@@ -48,8 +47,8 @@ def index():
 def get_gps_data():
     # Replace with actual GPS reading logic
     gps_data = {
-        "latitude": random.randint(-90, 90),
-        "longitude": random.randint(-90, 90)
+        "latitude": gps.latitude,
+        "longitude": gps.longitude
     }
     return json.dumps(gps_data)
 @app.route("/video")
