@@ -19,12 +19,12 @@ import ServerHost #handles the server hosting
 import MotorControllers #handles the motor controllers
 import GpsModule #handles the GPS module
 
-uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)
-gps = adafruit_gps.GPS(uart, debug=False)
-
-# Start using the GPS
-gps.send_command(b"PMTK220,1000")  # Update every 1 second
-gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")  # NMEA sentences to output
+# uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=10)
+# gps = adafruit_gps.GPS(uart, debug=False)
+#
+# # Start using the GPS
+# gps.send_command(b"PMTK220,1000")  # Update every 1 second
+# gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")  # NMEA sentences to output
 
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)  # 0 = first USB camera
@@ -66,8 +66,8 @@ def index():
 def get_gps_data():
     # Replace with actual GPS reading logic
     gps_data = {
-        "latitude": gps.latitude,
-        "longitude": gps.longitude
+        "latitude": 0,
+        "longitude": 0
     }
     return json.dumps(gps_data)
 
