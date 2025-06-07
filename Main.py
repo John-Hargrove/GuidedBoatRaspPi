@@ -17,7 +17,7 @@
 # Channel # --> 16 (GPIO23)
 # Channel # --> 18 (GPIO24)
 
-
+#new
 import threading
 import time
 
