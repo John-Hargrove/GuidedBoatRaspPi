@@ -1,3 +1,6 @@
+from SharedData import SharedData
+shared_data = SharedData()
+
 import serial
 import adafruit_gps
 import pigpio
@@ -66,9 +69,14 @@ def sensors_main():
     while True:
         gps.update()
         if gps.has_fix:
-            print(f"Lat: {gps.latitude:.6f}, Lon: {gps.longitude:.6f}")
+            shared_data.gps_data = {
+                "lat": gps.latitude,
+                "lon": gps.longitude,
+                "alt": gps.altitude_m,
+                "time": gps.timestamp_utc,
+            }
 
-        print("--- PWM Readings ---")
-        for pin, reader in readers.items():
-            freq, duty = reader.get_pwm()
-            print(f"GPIO {pin}: Frequency = {freq:.2f} Hz, Duty Cycle = {duty:.2f}%")
+        shared_data.pwm_data = {
+            pin: reader.get_pwm() for pin, reader in readers.items()
+        }
+

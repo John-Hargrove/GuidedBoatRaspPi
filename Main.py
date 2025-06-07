@@ -21,15 +21,23 @@
 import threading
 import time
 
+from SharedData import SharedData
 import Sensors
 
-data_thread = threading.Thread(target=Sensors.sensors_main, daemon=True)
+shared_data = SharedData()
+data_thread = threading.Thread(target=Sensors.sensors_main, args=(shared_data,), daemon=True)
 
 
 def main():
     data_thread.start()
     while True:
-        print(time.time())
+        with shared_data.lock:
+            print("--- MAIN LOOP ---")
+            if shared_data.gps_data:
+                print(f"GPS: {shared_data.gps_data}")
+            for pin, (freq, duty) in shared_data.pwm_data.items():
+                print(f"GPIO {pin}: {freq:.1f} Hz, {duty:.1f}% duty")
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
