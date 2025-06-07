@@ -14,14 +14,17 @@ import time
 
 import Sensors
 
-data_thread = threading.Thread(target=Sensors.sensors_main)
+#data_thread = threading.Thread(target=Sensors.sensors_main)
 
 
 
 def main():
-    data_thread.start()
-    while True:
-        print(time.time())
+    #data_thread.start()
+
+    Sensors.sensors_main()
+
+    # while True:
+    #     print(time.time())
 
 if __name__ == "__main__":
     main()
