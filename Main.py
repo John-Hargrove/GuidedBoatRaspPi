@@ -12,12 +12,9 @@
 import threading
 import time
 
+import Sensors
 
-# import ServerHost #handles the server hosting
-import MotorControllers #handles the motor controllers
-import GpsModule #handles the GPS module
-
-
+data_thread = threading.Thread(target=Sensors.sensors_main)
 
 
 
