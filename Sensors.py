@@ -54,16 +54,21 @@ def sensors_main():
         exit(1)
 
     # Define the GPIO pins you want to monitor
-    pwm_pins = [11, 13, 15, 16, 18]
-    # GPIO 17, 27, 22, 23, 24
+    pwm_pins = [17, 27, 22, 23, 24]
+    # GPIO Num: 17, 27, 22, 23, 24
+    # Pin Num: 11, 13, 15, 16, 18
+
     readers = {}
 
     for pin in pwm_pins:
         readers[pin] = PWMReader(pi, pin)
 
     while True:
+        gps.update()
+        if gps.has_fix:
+            print(f"Lat: {gps.latitude:.6f}, Lon: {gps.longitude:.6f}")
+
         print("--- PWM Readings ---")
         for pin, reader in readers.items():
             freq, duty = reader.get_pwm()
             print(f"GPIO {pin}: Frequency = {freq:.2f} Hz, Duty Cycle = {duty:.2f}%")
-        time.sleep(0.5)
