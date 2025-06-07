@@ -19,8 +19,9 @@ data_thread = threading.Thread(target=Sensors.sensors_main)
 
 
 def main():
+    data_thread.start()
     while True:
-        pass
+        print(time.time())
 
 if __name__ == "__main__":
     main()
