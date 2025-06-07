@@ -9,18 +9,23 @@ gps = adafruit_gps.GPS(uart, debug=False)
 gps.send_command(b"PMTK220,200")  # Update every 200 milliseconds
 gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")  # NMEA sentences to output
 
+import pigpio
+import time
+
 class PWMReader:
     def __init__(self, pi, gpio_pin):
         self.pi = pi
         self.gpio_pin = gpio_pin
         self.high_tick = None
-        self.last_tick = None  # ✅ Initialize here
+        self.last_tick = None
         self.period = None
         self.high_time = None
         self.duty_cycle = 0
         self.frequency = 0
 
-        self.cb = self.pi.callback(self.gpio_pin, pigpio.EITHER_EDGE, self._cbf)
+        # Set pin as input
+        self.pi.set_mode(gpio_pin, pigpio.INPUT)
+        self.cb = self.pi.callback(gpio_pin, pigpio.EITHER_EDGE, self._cbf)
 
     def _cbf(self, gpio, level, tick):
         if level == 1:  # Rising edge
@@ -43,5 +48,22 @@ class PWMReader:
         self.cb.cancel()
 
 def sensors_main():
+    pi = pigpio.pi()
+    if not pi.connected:
+        print("Failed to connect to pigpio daemon.")
+        exit(1)
+
+    # Define the GPIO pins you want to monitor
+    pwm_pins = [11, 13, 15, 16, 18]
+    # GPIO 17, 27, 22, 23, 24
+    readers = {}
+
+    for pin in pwm_pins:
+        readers[pin] = PWMReader(pi, pin)
+
     while True:
-        gps.update()
+        print("--- PWM Readings ---")
+        for pin, reader in readers.items():
+            freq, duty = reader.get_pwm()
+            print(f"GPIO {pin}: Frequency = {freq:.2f} Hz, Duty Cycle = {duty:.2f}%")
+        time.sleep(0.5)
