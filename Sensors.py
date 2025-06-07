@@ -50,7 +50,7 @@ class PWMReader:
     def cancel(self):
         self.cb.cancel()
 
-def sensors_main():
+def sensors_main(shared_data):
     pi = pigpio.pi()
     if not pi.connected:
         print("Failed to connect to pigpio daemon.")
